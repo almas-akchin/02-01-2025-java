@@ -1,0 +1,41 @@
+public class Solution {
+
+    public static int maxScore(String s) {
+        // 1. Count total number of 1s
+        int totalOnes = 0;
+        for (char c : s.toCharArray()) {
+            if (c == '1') {
+                totalOnes++;
+            }
+        }
+
+        // 2. Initialize counters
+        int zerosSoFar = 0;
+        int onesSoFar = 0;
+        int maxScore = 0;
+
+        // 3. Iterate through all possible split points
+        for (int i = 0; i < s.length() - 1; i++) {
+            if (s.charAt(i) == '0') {
+                zerosSoFar++;
+            } else {
+                onesSoFar++;
+            }
+            int currentScore = zerosSoFar + (totalOnes - onesSoFar);
+            maxScore = Math.max(maxScore, currentScore);
+        }
+
+        return maxScore;
+    }
+
+    public static void main(String[] args) {
+        // Example 1 (Expected output = 5)
+        System.out.println(maxScore("011101")); 
+
+        // Example 2 (Expected output = 5)
+        System.out.println(maxScore("00111"));  
+
+        // Example 3 (Expected output = 3)
+        System.out.println(maxScore("1111"));   
+    }
+}
